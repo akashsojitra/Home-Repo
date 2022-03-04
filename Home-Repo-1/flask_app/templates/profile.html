@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='profile.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="content">
+            <h1>{{user_profile.firstName}}'s Profile</h1>
+            <div>
+                <a href="/new_listing/{{user_profile.id}}" class="btn">Create Listing</a>
+                <a href="/" class="btn">Dashboard</a>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <main>
+        <div id="my_listings">
+            <h2>My Listings</h2>
+            {% for listing in listings %}
+            {%if listing.id != none%}
+            <div class="listing">
+                <h3>{{listing.title}}</h3>
+                <br>
+                <div>
+                    <a href="/view_listing/{{user_profile.id}}/{{listing.id}}"><img class="house_img" src="{{listing.imgURL}}" alt="house"></a>
+                </div>
+                <div id="buttons">
+                    <a href="/delete_listing/{{user_profile.id}}/{{listing.id}}" class="btn">Delete</a>
+                    <a href="/edit_listing/{{user_profile.id}}/{{listing.id}}" class="btn">Edit</a>
+                </div>
+            </div>
+            <br>
+            {%endif%}
+            {% endfor %}
+        </div>
+        <div id="favorites">
+            <h2>My Favorites</h2>
+            {% for listing in favorite_listings %}
+                {%if listing.id != none%}
+                <div class="listing">
+                    <h3>Title {{listing.title}}</h3>
+                    <br>
+                    <div>
+                        <a href="/view_listing/{{user_profile.id}}/{{listing.id}}"><img class="house_img" src="{{listing.imgURL}}" alt="house"></a>
+                    </div>
+                    <p>Listed by: {{listing.firstName}} {{listing.lastName}}</p>
+                    <div id="buttons">
+                        <a href="/unlike_listing/{{user_profile.id}}/{{listing.id}}" class="btn">Delete</a>
+                    </div>
+                </div>
+                <br>
+                {%endif%}
+            {%endfor%}
+        </div>
+    </main>
+</body>
+</html>

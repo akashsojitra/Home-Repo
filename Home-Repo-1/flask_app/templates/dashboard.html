@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='dashboard.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="content">
+            <h1>Home Listing Dashboard</h1>
+            <div>
+                <a href="/profile/{{current_user.id}}" class="btn">My Profile</a>
+                <a href="/logout" class="btn">Logout</a>
+            </div>
+        </div>
+    </header>
+    <hr>
+    <main>
+        <h2>All Listings</h2>
+        {%if all_listings != false%}
+        {%for listing in all_listings%}
+            {%if listing.id != none%}
+                <div class="listing">
+                    <h3>{{listing.title}}</h3>
+                    <br>
+                    <div>
+                        <a href="/view_listing/{{current_user.id}}/{{listing.id}}"><img class="house_img" src="{{listing.imgURL}}" alt="house"></a>
+                    </div>
+                    <div class="list_info">
+                        <p>Listed by: {{listing.firstName}} {{listing.lastName}}</p>
+                        <div class="likes">
+                            {%if current_user.id != listing.userId%}
+                                {%if current_user.id in listing.likes|map(attribute="userID") %}
+                                <a href="/unlike_listing/{{current_user.id}}/{{listing.id}}" class="btn">Unlike</a>
+                                {%else%}
+                                <a href="/like_listing/{{current_user.id}}/{{listing.id}}" class="btn">Like</a>
+                                {%endif%}
+                            {%endif%}
+                            <p>{{listing.likes|length}} Like(s)</p>
+                        </div>
+                    </div>
+                </div>
+            {%endif%}
+        {% endfor %}
+        {%endif%}
+    </main>
+</body>
+</html>

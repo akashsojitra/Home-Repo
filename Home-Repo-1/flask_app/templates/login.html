@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+        {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+            {% if messages %}                            <!-- check if there are any messages -->
+                {% for message in messages %}            <!-- loop through the messages -->
+                    <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                {% endfor %}
+            {% endif %}
+        {% endwith %}    
+    </header>
+    <h1>Home Repo</h1>
+    <div id="container">
+        <div class="form">
+            <h2>Register</h2>
+            <form action="/process_user" method="post">
+                <div class="txt_field">
+                    <input type="text" name="firstName" required>
+                    <span></span>
+                    <label>First Name</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="lastName" required>
+                    <span></span>
+                    <label>Last Name</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="r_password" required>
+                    <span></span>
+                    <label>Confirm Password</label>
+                </div>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+        <div class="form">
+            <h2>Login</h2>
+            <form action="/process_login" method="post">
+                <div class="txt_field">
+                    <input type="text" name="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

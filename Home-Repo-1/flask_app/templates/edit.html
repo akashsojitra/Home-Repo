@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <link rel="stylesheet" href="/static/css/edit.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='edit.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div id="content">
+            <h1>Edit</h1>
+        </div>
+            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}    
+    </header>
+    <hr>
+    <main>
+        <div id="edit_container">
+            <form action="/update_listing/{{current_user}}/{{listing.id}}" method="post">
+                <input type="text" name="title" placeholder="Title" value="{{listing.title}}"><br>
+                <input type="url" name="imgURL" id="" placeholder="Image URL" value="{{listing.imgURL}}"><br>
+                <input type="text" name="listPrice" placeholder="List Price" value="{{listing.listPrice}}"><br>
+                <textarea type="text" name="description" rows="7" cols="35" placeholder="Description">{{listing.description}}</textarea><br>
+                <div id="buttons">
+                    <button>Back</button>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
